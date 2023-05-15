@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from Config import Config
 from AgentLLM import AgentLLM
@@ -20,6 +21,7 @@ app = FastAPI(
     version="v1.1.30-beta",
     docs_url="/",
 )
+app.mount("/.well-known", StaticFiles(directory=".well-known"), name="static")
 agent_threads = {}
 agent_stop_events = {}
 
